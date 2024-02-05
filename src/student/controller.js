@@ -1,12 +1,11 @@
-const pool = require('../index.ts');
+const pool = require('../../db');
 const queries = require('./queries');
 
-const getStudents = (req, res) => {
+const getStudents =  async (req, res) => {
+    const { rows } = await pool.query(queries.getStudents);
+
     pool.query(queries.getStudents, (error, results) => {
-        if (error) {
-            throw error;
-        }
-        res.status(200).json(results.rows);
+        res.send(results.rows);
     });
 }
 

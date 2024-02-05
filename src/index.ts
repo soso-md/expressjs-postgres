@@ -20,15 +20,6 @@ app.get("/", async (req, res) => {
   res.send(`Hello, World! The time from the DB is ${rows}`);
 });
 
-app.get("/help", async (req, res) => {
-  pool.query(queries.getStudents, (error: any, results: any) => {
-    if (error) {
-        throw error;
-    }
-    res.status(200).json(results.rows);
-});
-});
-
 app.use('/api/v1/students', studentRoutes);
 
 app.listen(port, () => {
