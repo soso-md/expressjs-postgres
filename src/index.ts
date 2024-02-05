@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import express from "express";
 
 const pool = require('../db');
-const studentRoutes = require('./students/routes');
+const studentRoutes = require('./students/routes.js');
 
 const app = express();
 const port = process.env.PORT || 3333;
