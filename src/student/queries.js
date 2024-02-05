@@ -1,5 +1,5 @@
-const getStudents = 'SELECT * FROM student';
+// const getStudents = 'SELECT * FROM student';
 
-module.exports = {
-    getStudents,
-}
+// module.exports = {
+//     getStudents,
+// }

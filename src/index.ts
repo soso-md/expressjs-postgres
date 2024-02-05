@@ -17,10 +17,10 @@ app.use(bodyParser.text({ type: "text/html" }));
 
 app.get("/", async (req, res) => {
   const { rows } = await pool.query("SELECT name FROM student");
-  res.send(`Hello, World! The time from the DB is ${rows}`);
+  res.send(`Hello, World! The time from the DB is ${rows[0].name}`);
 });
 
-app.use('/api/v1/students', studentRoutes);
+// app.use('/api/v1/students', studentRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
