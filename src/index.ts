@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import express from "express";
 
 const pool = require('../db');
+const studentRoutes = require('./students/routes');
 
 const app = express();
 const port = process.env.PORT || 3333;
@@ -17,7 +18,7 @@ app.get("/", async (req, res) => {
   res.send(`Hello, World! The time from the DB is ${rows[0].name}`);
 });
 
-// app.use('/api/v1/students', studentRoutes);
+app.use('/api/v1/students', studentRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
