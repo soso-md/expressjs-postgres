@@ -1,23 +1,38 @@
 import bodyParser from "body-parser";
 import express from "express";
-import pg from "pg";
 
-// Connect to the database using the DATABASE_URL environment
-//   variable injected by Railway
-const pool = new pg.Pool();
+const pool = require('../db');
+const queries = require('./student/queries');
+const studentRoutes = require('./student/routes');
+
 
 const app = express();
 const port = process.env.PORT || 3333;
 
+// middleware
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
 app.use(bodyParser.text({ type: "text/html" }));
 
+
 app.get("/", async (req, res) => {
-  const { rows } = await pool.query("SELECT NOW()");
-  res.send(`Hello, World! The time from the DB is ${rows[0].now}`);
+  const { rows } = await pool.query("SELECT name FROM student");
+  res.send(`Hello, World! The time from the DB is ${rows}`);
 });
+
+app.get("/help", async (req, res) => {
+  pool.query(queries.getStudents, (error: any, results: any) => {
+    if (error) {
+        throw error;
+    }
+    res.status(200).json(results.rows);
+});
+});
+
+app.use('/api/v1/students', studentRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+module.exports = pool;
